@@ -1,52 +1,24 @@
 #include "tls_util.h"
 #include <stdlib.h>
 
-DECL_TLS void *GTLS_Slots::slot0 = NULL;
-DECL_TLS void *GTLS_Slots::slot1 = NULL;
-DECL_TLS void *GTLS_Slots::slot2 = NULL;
-DECL_TLS void *GTLS_Slots::slot3 = NULL;
-DECL_TLS void *GTLS_Slots::slot4 = NULL;
+#define DECLARE_SLOT(i) DECL_TLS void *GTLS_Slots::slot##i = NULL;
 
-void *get_tls_slot0()
-{
-    return GTLS_Slots::slot0;
-}
-void *get_tls_slot1()
-{
-    return GTLS_Slots::slot1;
-}
-void *get_tls_slot2()
-{
-    return GTLS_Slots::slot2;
-}
-void *get_tls_slot3()
-{
-    return GTLS_Slots::slot3;
-}
-void *get_tls_slot4()
-{
-    return GTLS_Slots::slot4;
-}
+DECLARE_SLOT(0)
+DECLARE_SLOT(1)
+DECLARE_SLOT(2)
+DECLARE_SLOT(3)
+DECLARE_SLOT(4)
 
-void set_tls_slot0(void *p)
-{
-    GTLS_Slots::slot0 = p;
-}
-void set_tls_slot1(void *p)
-{
-    GTLS_Slots::slot1 = p;
-}
-void set_tls_slot2(void *p)
-{
-    GTLS_Slots::slot2 = p;
-}
-void set_tls_slot3(void *p)
-{
-    GTLS_Slots::slot3 = p;
-}
-void set_tls_slot4(void *p)
-{
-    GTLS_Slots::slot4 = p;
-}
 
+#define DECLARE_SLOT_FUNC(ID) \
+    void *get_tls_slot##ID() { return GTLS_Slots::slot##ID; } \
+    void set_tls_slot##ID(void *p) { GTLS_Slots::slot##ID = p; }
+
+
+DECLARE_SLOT_FUNC(0)
+DECLARE_SLOT_FUNC(1)
+DECLARE_SLOT_FUNC(2)
+DECLARE_SLOT_FUNC(3)
+DECLARE_SLOT_FUNC(4)
+    
 
